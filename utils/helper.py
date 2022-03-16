@@ -33,11 +33,16 @@ def my_knn_type(img, fake_imgs, topk=10):
     sim_out = fake_imgs[rel.argsort()[0:topk], :]
     # print(sim_out.shape)
     value, index = torch.median(sim_out, dim=0, keepdim=True)
-    # sim_out = torch.median(fake_imgs, rel.argsort()[0:topk], dim=0)
+    # value = torch.mean(sim_out, dim=0, keepdim=True)
 
     locs = (out_img == 0)
     # print(out_img.shape, value.shape)
     value = value.float()
+    # return value
+    # for test
+    # temp = value[locs] 
+    # print(len(temp[temp>0]))
+
     out_img[locs] = value[locs]
     # print(out_img.shape)
     return out_img
